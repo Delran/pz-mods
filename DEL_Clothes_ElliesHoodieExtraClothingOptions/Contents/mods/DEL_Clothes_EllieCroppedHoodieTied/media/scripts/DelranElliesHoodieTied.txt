@@ -1,0 +1,26 @@
+module DelranElliesCroppedHoodieTied {
+	imports {
+		Base}
+		
+    item Hoodie_CroppedTied
+    {
+        ClothingItemExtra = ElliesClothingShop.Hoodie_CroppedDown,
+        ClothingItemExtraOption = DownHoodie,
+
+	    DisplayCategory = Clothing,		
+        Type 		    = Clothing,
+        DisplayName     = Hoodie Cropped (Tied),
+        ClothingItem    = Hoodie_CroppedTied,
+		
+        ClothingItemExtra       = ElliesClothingShop.Hoodie_CroppedDown,
+        ClothingItemExtraOption = DownHoodie,	
+		
+		BodyLocation 	 = TorsoExtra,
+		BloodLocation 	 = Apron,
+        Icon 			 = HoodieWhite,
+        ScratchDefense 	 = 10,
+        WorldStaticModel = Hoodie_Ground,
+    }   
+	
+
+}

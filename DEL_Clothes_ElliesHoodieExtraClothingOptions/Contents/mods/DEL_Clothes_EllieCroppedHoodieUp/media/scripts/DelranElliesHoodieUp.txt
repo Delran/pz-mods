@@ -1,0 +1,24 @@
+module DelranElliesCroppedHoodieUp {
+	imports {
+		Base}
+		
+    item Hoodie_CroppedUp
+    {
+        DisplayCategory = Clothing,
+        Type = Clothing,
+        DisplayName = Hoodie Cropped,
+        ClothingItem = Hoodie_CroppedUp,
+
+        ClothingItemExtra = ElliesClothingShop.Hoodie_CroppedDown,
+        ClothingItemExtraOption = DownHoodie,
+
+        BodyLocation = Sweater,
+        BloodLocation = Jumper;FullHelmet,
+        Icon = HoodieWhite,
+        ScratchDefense = 10,
+        Insulation = 0.55,
+        WindResistance = 0.2,
+        FabricType = Cotton,
+        WorldStaticModel = Hoodie_Ground,
+    }   
+}

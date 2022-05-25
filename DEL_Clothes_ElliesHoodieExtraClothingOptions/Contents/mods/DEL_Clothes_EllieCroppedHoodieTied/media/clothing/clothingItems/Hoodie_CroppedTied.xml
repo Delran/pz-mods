@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<clothingItem>
+	<m_MaleModel>media\models_X\skinned\clothes\JacketTied.FBX</m_MaleModel>
+	<m_FemaleModel>media\models_X\skinned\clothes\JacketTied.FBX</m_FemaleModel>
+	<m_GUID>c5d3faa4-078b-47d3-8915-76cfa08e9d06</m_GUID>
+	<m_Static>false</m_Static>
+	<m_AllowRandomHue>false</m_AllowRandomHue>
+	<m_AllowRandomTint>true</m_AllowRandomTint>
+	<m_AttachBone></m_AttachBone>
+	<textureChoices>clothes\hoodie\Hoodie_CroppedTied</textureChoices>
+</clothingItem>

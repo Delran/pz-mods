@@ -1,0 +1,12 @@
+name=Ellie's Clothing Cropped Hoodie Up
+id=DelranClothingFixEllieHoodieUp
+
+description=Add a version of Ellie's Cropped Hoodie with the hood up
+
+require=ElliesClothingShop,ItemTweakerAPIExtraClothingAddon
+
+authors=Delran
+pzversion=41
+tags=Clothing/Armor,Misc
+
+poster=Poster.png

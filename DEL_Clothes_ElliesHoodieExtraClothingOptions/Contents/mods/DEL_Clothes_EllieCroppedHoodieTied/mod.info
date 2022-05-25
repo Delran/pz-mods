@@ -1,0 +1,11 @@
+name=Ellie's Clothing Cropped Hoodie Tied Around Waist (Requires Authentic Z - Lite or Authentic - Z - Current)
+id=DelranClothingFixEllieHoodieTied
+
+description=Add the option to tie Ellie's cropped hoodie around the waist using Authentic Z by AuthenticPeach
+
+require=ElliesClothingShop,ItemTweakerAPIExtraClothingAddon
+
+pzversion=41
+authors=Delran
+
+poster=Poster.png

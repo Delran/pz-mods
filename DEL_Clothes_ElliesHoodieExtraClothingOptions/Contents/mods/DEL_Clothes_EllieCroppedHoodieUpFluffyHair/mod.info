@@ -1,0 +1,12 @@
+name=Ellie's Clothing Cropped Hoodie Up With Fluffy Hair
+id=DelranClothingFixEllieHoodieUpFluffyHair
+
+description=Patches the hood to work with Fluffy Hair
+
+require=FH,DelranClothingFixEllieHoodieUp
+
+authors=Delran
+pzversion=41
+tags=Misc
+
+poster=Poster.png

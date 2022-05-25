@@ -1,0 +1,5 @@
+version=1
+id=2810800927
+title=ItemTweaker Extra Clothing Option Addon
+tags=Framework;Misc
+visibility=public
