@@ -1,28 +1,35 @@
-ExtraClothingOptions = { NameSet = {}, Options = {} }
+ExtraClothingOptions = { NameSet = {}, Options = {}, CurrentTweakDataOptions = "" }
 
 -- Create a new ExtraClothingOptions object
 function ExtraClothingOptions:New()
-  local o = {}
-  setmetatable(o, {__index = self})
-  o.NameSet = {}
-  o.Options = {}
-  return o
+    local o = {}
+    setmetatable(o, {__index = self})
+    -- Set of the options name, will be used to efficiently
+    -- know if the object already contains an option
+    o.NameSet = {}
+    -- Table of pairs contains the name of the extra clothing
+    -- option and the clothing item it is linked to
+    o.Options = {}
+    -- We'll keep the last generated TweakData string in a
+    -- buffer to check if anything was overridden
+    o.CurrentTweakDataOptions = ""
+    return o
 end
 
 -- Add an clothing option entry to the object
 ---@param name the name of the option (ClothingItemExtraOption)
 ---@param item the name of the clothing item attached to it (ClothingItemExtra).
 function ExtraClothingOptions:Add(name, item)
-  table.insert(self.Options, { Name = name, Item = item })
-  self.NameSet[name] = true
+    table.insert(self.Options, { Name = name, Item = item })
+    self.NameSet[name] = true
 end
 
 -- Removes a clothing option entry from the object
 ---@param name the name of the option (ClothingItemExtraOption)
 function ExtraClothingOptions:Remove(name)
-  if self:Contains(name) then
-    table.remove(self.Options, self:GetIndex(name));
-  end
+    if self:Contains(name) then
+        table.remove(self.Options, self:GetIndex(name));
+    end
 end
 
 -- Checks if the object already contains an entry for the given option name
@@ -36,37 +43,39 @@ end
 ---@param name the name of the option (ClothingItemExtraOption)
 ---@return index of the entry if it exists, nil otherwise
 function ExtraClothingOptions:GetIndex(name)
-  for index, option in ipairs(self.Options) do
-    if option["Name"] == name then
-        return index
+    for index, option in ipairs(self.Options) do
+        if option["Name"] == name then
+            return index
+        end
     end
-  end
-  return nil
+    return nil
 end
 
 -- Convert the object into strings usable by the ItemTweakerAPI
 ---@return table with two keys, ["optionNames"] for the ClothingItemExtraOption
 -- field and ["clothingItems"] for the ClothingItemExtra field
 function ExtraClothingOptions:ConvertToTweakData()
-  local clothingItems = ""
-  local optionNames = ""
+    local clothingItems = ""
+    local optionNames = ""
 
-  for _, option in ipairs(self.Options) do
-    clothingItems = clothingItems .. option["Item"] .. ";";
-    optionNames = optionNames .. option["Name"] .. ";";
-  end
+    for _, option in ipairs(self.Options) do
+        clothingItems = clothingItems .. option["Item"] .. ";";
+        optionNames = optionNames .. option["Name"] .. ";";
+    end
 
-  return
-  {
-    ["clothingItems"] = clothingItems:sub(1, -2),
-    ["optionNames"] = optionNames:sub(1, -2)
-  }
+    self.CurrentTweakDataOptions = optionNames:sub(1, -2)
+
+    return
+    {
+        ["clothingItems"] = clothingItems:sub(1, -2),
+        ["optionNames"] = self.CurrentTweakDataOptions
+    }
 
 end
 
 -- Prints every entry of the object
 function ExtraClothingOptions:Print()
-  for _, option in ipairs(self.Options) do
-    print("Extra option pair : " .. option["Name"] .. ", " .. option["Item"])
-  end
+    for _, option in ipairs(self.Options) do
+        print("Extra option pair : " .. option["Name"] .. ", " .. option["Item"])
+    end
 end

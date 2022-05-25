@@ -2,6 +2,9 @@ if getActivatedMods():contains("ItemTweakerAPI") then
 	require("ItemTweaker_Core");
 else return end
 
+require("Delran_Utils")
+
+-- Include the extra option class
 require("ExtraClothingOptions")
 
 local ClothingOptions = {}
@@ -29,6 +32,22 @@ local function CheckIfOptionExists(itemName, extraOptionClothingItem, extraOptio
 			-- if an extra clothing option was indeed added, keep it before continuing
 			local currentItemOptionClothing = currentItemTweakData[extraClothingStr]
 			itemClothingOptions:Add(currentItemOptionName, currentItemOptionClothing)
+		end
+
+		-- Check if the tweak data has changed
+	elseif itemClothingOptions.CurrentTweakDataOptions ~= currentItemTweakData[extraOptionStr] then
+		-- If the tweaked data has changed, this mean that the options were overridden
+		-- by an external use of the IteamTweaker Core API, we can add the options
+		local extraOptionToAdd = currentItemTweakData[extraClothingStr]
+		local extraOptionNamesToAdd = currentItemTweakData[extraOptionStr]
+
+		local optionClothes = DelranUtils.Split(extraOptionToAdd)
+		local optionNames = DelranUtils.Split(extraOptionNamesToAdd)
+
+		for index, optioName in ipairs(optionNames) do
+			if not itemClothingOptions:Contains(optioName) then
+				itemClothingOptions:Add(optioName, optionClothes[index])
+			end
 		end
 
 	end
@@ -96,9 +115,9 @@ Usage is simple, just call the function with the name of the item to modify, the
 item and the name of the option
 e.g.
 
-	local currentItem = "Base.Hoodie_Down";
-	ItemTweaker.AddClothingOptionIfDoesntExists(currentItem, "Base.Hoodie_Up", "UpHoodie")
-	ItemTweaker.AddClothingOptionIfDoesntExists(currentItem, "Base.Hoodie_Tied", "TieAroundWaist")
+local currentItem = "Base.Hoodie_Down";
+ItemTweaker.AddClothingOptionIfDoesntExists(currentItem, "Base.Hoodie_Up", "UpHoodie")
+ItemTweaker.AddClothingOptionIfDoesntExists(currentItem, "Base.Hoodie_Tied", "TieAroundWaist")
 ]]
 
 --------------- TESTS ----------------
