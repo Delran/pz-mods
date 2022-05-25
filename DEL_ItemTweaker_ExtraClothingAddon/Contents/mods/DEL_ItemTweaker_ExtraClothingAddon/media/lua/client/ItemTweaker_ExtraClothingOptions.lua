@@ -10,50 +10,28 @@ local extraClothingStr = "ClothingItemExtra";
 local extraOptionStr = "ClothingItemExtraOption";
 
 local function CheckIfOptionExists(itemName, extraOptionClothingItem, extraOptionName)
-	if not TweakItemData[itemName] then
+	local currentItemTweakData = TweakItemData[itemName]
+	local itemClothingOptions = ClothingOptions[itemName]
+
+	if not currentItemTweakData then
 		TweakItemData[itemName] = {};
-
 		ClothingOptions[itemName] = ExtraClothingOptions:New()
+		itemClothingOptions = ClothingOptions[itemName]
 
-		-- Unsuccessfully tried to avoid overriding items fields
-		--[[
-		local item = ScriptManager.instance:getItem(itemName);
-		local extraOptionClothing = item:getClothingItemExtra();
-		local extraOptionNames = item:getClothingItemExtraOption();
+	elseif not itemClothingOptions then
+		ClothingOptions[itemName] = ExtraClothingOptions:New()
+		itemClothingOptions = ClothingOptions[itemName]
 
-		if ( extraOptionClothing ~= nil and extraOptionNames ~= nil ) then
-
-			print("DEBUG DELRAN HERE");
-
-			print(extraOptionClothing[0]);
-			print(extraOptionNames[0]);
-
-			local baseExtraOptionClothing = "";
-
-			for i, clothingOption in ipairs(extraOptionClothing) do
-			  print (clothingOption);
-			  baseExtraOptionClothing = baseExtraOptionClothing .. clothingOption .. ";";
-			end
-
-			local baseExtraOptionNames = "";
-
-			for i, clothingOptionName in ipairs(extraOptionNames) do
-			  print (clothingOptionName);
-			  baseExtraOptionNames = baseExtraOptionNames .. clothingOptionName .. ";";
-			end
-
-			print(baseExtraOptionClothing);
-			print(baseExtraOptionNames);
-
-			TweakItemData[itemName][extraClothingStr] = baseExtraOptionClothing:sub(1, -2);
-			TweakItemData[itemName][extraOptionStr] = baseExtraOptionNames:sub(1, -2);
-
+		-- The item was modified using the ItemTweaker API,
+		-- we'll check if an extra clothing option was added
+		local currentItemOptionName = currentItemTweakData[extraOptionStr]
+		if currentItemOptionName then
+			-- if an extra clothing option was indeed added, keep it before continuing
+			local currentItemOptionClothing = currentItemTweakData[extraClothingStr]
+			itemClothingOptions:Add(currentItemOptionName, currentItemOptionClothing)
 		end
 
-		]]
 	end
-
-	local itemClothingOptions = ClothingOptions[itemName]
 
 	-- Don't do anything is the given option name is already in the set
 	if itemClothingOptions:Contains(extraOptionName) then
